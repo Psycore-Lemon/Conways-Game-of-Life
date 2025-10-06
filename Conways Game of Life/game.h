@@ -6,6 +6,7 @@
 #include <iostream>
 
 
+
 enum GameState
 {
 	GAME_ACTIVE,
