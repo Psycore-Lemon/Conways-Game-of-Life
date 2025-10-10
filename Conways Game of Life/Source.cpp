@@ -43,6 +43,8 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    std::cout << 1 << glGetString(GL_VERSION) << 1 << std::endl;
+
     glfwSetKeyCallback(window, key_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
