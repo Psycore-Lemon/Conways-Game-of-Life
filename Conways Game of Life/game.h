@@ -22,6 +22,7 @@ enum Life
 
 const int GRID_X = 100;
 const int GRID_Y = 100;
+const float CELL_SIZE = 20.0f;
 
 
 
