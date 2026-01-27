@@ -11,6 +11,15 @@
 #include "game.h"
 #include "Winding/stb_image.h"
 
+#ifdef _DEBUG
+    #include "test_game_of_life.h"
+    bool debugActive = true;
+
+#else
+    bool debugActive = false;
+#endif // _DEBUG
+
+
 
 
 // GLFW function declarations
@@ -24,6 +33,8 @@ const unsigned int SCREEN_WIDTH = 800;
 const unsigned int SCREEN_HEIGHT = 600;
 
 Game Conway(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+
 
 int main(int argc, char* argv[])
 {
@@ -107,10 +118,41 @@ int main(int argc, char* argv[])
         glfwPollEvents();
 
         // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-        ImGui::ShowDemoWindow(); // Show demo window! :)
+        if (debugActive)
+        {
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+
+            // ---- ImGui UI here ----
+            ImGui::Begin("Controls");
+
+            ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+
+            if (ImGui::Button("Run Unit Tests")) 
+            {
+                runUnitTests();
+            }
+
+
+            if (ImGui::Button("Run Integration Tests"))
+            {
+                runUnitTests();
+            }
+
+
+            if (ImGui::Button("Run Stress Tests"))
+            {
+                runUnitTests();
+            }
+
+            ImGui::End();
+            // ----------------------
+
+
+            //ImGui::ShowDemoWindow(); // Show demo window! :)
+        }
+        
 
         // manage user input
         // -----------------
@@ -128,8 +170,12 @@ int main(int argc, char* argv[])
         Conway.Render();
 
         // Rendering
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        if (debugActive)
+        {
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        }
+        
 
 
         glfwSwapBuffers(window);
@@ -150,6 +196,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     // when a user presses the escape key, we set the WindowShouldClose property to true, closing the application
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+
+    if (key == GLFW_KEY_F2 && action == GLFW_PRESS)
+        debugActive = !debugActive;
+
     if (key >= 0 && key < 1024)
     {
         if (action == GLFW_PRESS)

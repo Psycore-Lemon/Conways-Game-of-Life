@@ -16,6 +16,9 @@
     <Filter Include="Imgui">
       <UniqueIdentifier>{dea7b5df-5e69-410c-a31e-0af90234a37f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Testing">
+      <UniqueIdentifier>{f4af49d5-36a0-43db-97ae-7f5bcee6049f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -109,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="..\Dependencies\imgui\misc\cpp\imgui_stdlib.h">
       <Filter>Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="testing.h">
+      <Filter>Source Files\Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="test_game_of_life.h">
+      <Filter>Source Files\Testing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -35,7 +35,35 @@ void Game::ProcessInput(float dt, GLFWwindow* window)
 
 void Game::Update(float dt)
 {
+    Life CellTemp[GRID_X][GRID_Y] = {};
 
+    int i = 0;
+    int j = 0;
+
+    for (i = 0; i < GRID_X; i++)
+    {
+        for (j = 0; j < GRID_Y; j++)
+        {
+            if (Cell[i][j] == ALIVE)
+            {
+                CellTemp[i][j] = ProcessRuleLive(Cell, i, j);
+            }
+            else 
+            {
+                CellTemp[i][j] = ProcessRuleDead(Cell, i, j);
+            }
+            
+        }
+    }
+    
+    for (i = 0; i < GRID_X; ++i)
+    {
+        for (j = 0; j < GRID_Y; ++j)
+        {
+            Cell[i][j] = CellTemp[i][j];
+        }
+    }
+    
 }
 
 void Game::Render()
@@ -73,10 +101,36 @@ Life ProcessRuleLive(Life(&grid)[GRID_X][GRID_Y], int x, int y)
         }
     }
 
+    if (counter < 2 || counter > 3)
+    {
+        return DEAD;
+    }
+
     return ALIVE;
 }
 
-Life ProcessRuleDead(Life(&grid)[GRID_X][GRID_Y], int x, int y);
+Life ProcessRuleDead(Life(&grid)[GRID_X][GRID_Y], int x, int y)
+{
+    int counter = 0;
+
+    for (int i = -1; i <= 1; i++)
+    {
+        for (int j = -1; j <= 1; j++)
+        {
+            if (grid[i][j] == ALIVE && !(i == 0 && j == 0))
+            {
+                counter++;
+            }
+        }
+    }
+
+    if (counter == 3)
+    {
+        return ALIVE;
+    }
+
+    return DEAD;
+}
 
 float clamp(float value, float min, float max);
 int clamp(int value, int min, int max);

@@ -163,6 +163,8 @@
     <ClInclude Include="resource_manager.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="sprite_renderer.h" />
+    <ClInclude Include="testing.h" />
+    <ClInclude Include="test_game_of_life.h" />
     <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
